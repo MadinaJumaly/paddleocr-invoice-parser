@@ -1,0 +1,9 @@
+{% load static %}
+
+<header class="header body-pd" id="header">
+              
+    <div class="header_toggle"> <i class="bx bx-menu bx-x" id="header-toggle"></i> </div>
+    {% if user.is_authenticated %}
+    <div class="header_img"> <img src="https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg" alt=""> </div>
+    {% endif %}
+</header>

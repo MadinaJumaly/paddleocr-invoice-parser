@@ -1,0 +1,46 @@
+{%load static%}
+
+<nav class="nav">
+  <div>
+    <a href="http://127.0.0.1:8000" class="nav_logo">
+      <span class="nav_logo-name">PDF TO EXEL</span>
+    </a>
+    {% if user.is_authenticated %}
+    <div class="nav_list">
+      <a href="#" class="nav_link active">
+        <i class="bx bx-grid-alt nav_icon"></i>
+        <span class="nav_name">Главная</span>
+      </a>
+      <!--<a href="#" class="nav_link"> <i class="bx bx-message-square-detail nav_icon"></i> <span class="nav_name">Сообщения</span> </a> -->
+      <a href="#" class="nav_link">
+        <i class="bx bx-file nav_icon"></i>
+        <span class="nav_name">Распознавание</span>
+      </a>
+      <a href="#" class="nav_link">
+        <i class="bx bx-history nav_icon"></i>
+        <span class="nav_name">История</span>
+      </a>
+      <a href="#" class="nav_link">
+        <i class="bx bx-user nav_icon"></i>
+        <span class="nav_name">Профиль</span>
+      </a>
+    </div>
+    {% endif %}
+  </div>
+
+  {% if user.is_authenticated %}
+  <li class="nav-item">
+    <a
+      href=""
+      target="_blank"
+      onclick="$('#signOutBtn').click()"
+      class="nav_link"
+      ><i id="signOutBtn" class="bx bx-log-out nav_icon"></i><span class="nav_name">Выйти</span>
+    </a>
+    <form style="display: none" method="POST" action="{% url 'logoutuser' %}">
+      {% csrf_token %}
+      <button id="signOutBtn" type="submit">Logout</button>
+    </form>
+  </li>
+  {% endif %}
+</nav>

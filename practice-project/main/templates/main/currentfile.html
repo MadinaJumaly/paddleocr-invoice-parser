@@ -1,0 +1,121 @@
+
+{% load static %}
+{% block content %}
+
+{% if user.is_authenticated %}
+    {% include "main/partials/header.html" %}    
+
+    <!-- End of Header-->  
+
+    <div class="l-navbar show" id="nav-bar">
+
+    <!--Navbar-->   
+
+    {% include "main/partials/navbar.html" %} 
+
+    <!-- End of Navbar-->             
+               
+    </div>
+
+    <!--Container Main start-->
+          <!-- Card Upload -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-fw fa-arrow-circle-up"></i> Upload Image</h6>
+            </div>
+            <div class="card-body">
+              <section>
+                <form action="" method="POST" enctype="multipart/form-data" >
+                  {% csrf_token %}
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <div class="preview-zone hidden">
+                            <div class="box box-solid">
+                              <div class="box-header with-border">
+                                  <div class="box-tools pull-right">
+                                  </div>
+                                </div>
+                              <div class="box-body"></div>
+                            </div>
+                          </div>
+                          <div class="dropzone-wrapper">
+                          <div class="dropzone-desc">
+                            <i class="fas fa-fw fa-upload"></i>
+                              <p>Choose an image file or drag it here.</p>
+                          </div>
+                          <input type="file" name="imagefile" class="dropzone" >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <button type="submit" class="btn btn-primary pull-right">Upload</button>
+                      </div>
+                    </div>
+                  </div>      
+                </form>    
+              </section>
+            </div>
+        </div>
+    <div class="row">
+      {% if user.is_authenticated %}
+     
+
+        <div class="col-lg-6">
+
+          <!-- Circle Buttons -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">Original Image</h6>
+            </div>
+            <div class="card-body">
+              <div style="padding: 20px;">
+                <center>
+                  <img src="http://127.0.0.1{{ displayFile }}" alt="Original Image" style="max-height: 100%; max-width: 100%">
+                </center>
+              </div>
+              <div class="my-2"></div>
+              <a href="http://127.0.0.1{{ displayFile }}" class="btn btn-success btn-icon-split">
+                <span class="icon text-white-50">
+                  <i class="fas fa-download"></i>
+                </span>
+                <span class="text">Download Image</span>
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="col-lg-6">
+
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">Modified Image</h6>
+            </div>
+            <div class="card-body">
+              <div style="padding: 20px;">
+                <center>
+                  <img src="http://127.0.0.1{{ displayFileMod }}" alt="Modified Image" style="max-height: 100%; max-width: 100%">
+                </center>
+              </div>
+              <div class="my-2"></div>
+              <a href="http://127.0.0.1{{ displayFileMod }}" class="btn btn-success btn-icon-split">
+                <span class="icon text-white-50">
+                  <i class="fas fa-download"></i>
+                </span>
+                <span class="text">Download Image</span>
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+     
+              {% endif %}
+            </div>
+            
+             {% endif %}
+{%endblock%}   
