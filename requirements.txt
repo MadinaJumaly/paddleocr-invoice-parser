@@ -1,0 +1,17 @@
+# Python 3.12 (paddlepaddle 2.6 has no wheels for newer Python versions)
+
+# Web
+Django>=5.0,<5.3
+
+# Documents / export
+PyMuPDF>=1.24                    # PDF -> page images (no poppler needed)
+openpyxl>=3.1                    # write .xlsx results
+Pillow>=10
+numpy>=1.24,<2                   # paddle 2.6 is built against numpy 1.x
+opencv-python-headless>=4.8,<4.11
+
+# OCR (PaddleOCR 2.x API). These versions are tested together; newer
+# paddlepaddle 3.x + numpy 2 made OCR hang.
+paddlepaddle==2.6.2
+paddleocr>=2.7,<3
+setuptools                       # imported by paddle at runtime

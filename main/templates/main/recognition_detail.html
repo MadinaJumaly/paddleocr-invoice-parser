@@ -1,0 +1,48 @@
+{% extends "main/base.html" %}
+{% block title %}{{ item.original_name }}{% endblock %}
+
+{% block content %}
+<div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+  <h2 class="mb-0 me-2 text-break">{{ item.original_name }}</h2>
+  {% include "main/partials/status_badge.html" %}
+</div>
+<p class="text-muted">
+  Загружено {{ item.created_at|date:"d.m.Y H:i" }} · язык: {{ item.get_language_display }}
+  {% if item.duration %} · обработка {{ item.duration.total_seconds|floatformat:1 }} с{% endif %}
+</p>
+
+<div class="d-flex flex-wrap gap-2 mb-4">
+  {% if item.result %}
+    <a class="btn btn-success" href="{% url 'download_result' item.pk %}"><i class="bx bx-download"></i> Скачать Excel</a>
+  {% endif %}
+  <a class="btn btn-outline-secondary" href="{% url 'download_source' item.pk %}"><i class="bx bx-file"></i> Исходный файл</a>
+  <a class="btn btn-outline-primary" href="{% url 'recognition' %}"><i class="bx bx-plus"></i> Новый документ</a>
+  <form method="post" action="{% url 'recognition_delete' item.pk %}" class="ms-auto">
+    {% csrf_token %}
+    <button class="btn btn-outline-danger" type="submit"><i class="bx bx-trash"></i> Удалить</button>
+  </form>
+</div>
+
+{% if item.status == 'failed' %}
+  <div class="alert alert-danger">{{ item.error }}</div>
+{% elif item.status == 'empty' %}
+  <div class="alert alert-warning">Таблицы не найдены. Попробуйте скан лучшего качества или изображение только с таблицей.</div>
+{% endif %}
+
+{% for table in item.tables %}
+  <div class="card shadow-sm mb-4">
+    <div class="card-header bg-white fw-semibold">
+      Таблица {{ forloop.counter }} · страница {{ table.page }}
+    </div>
+    <div class="table-responsive result-table">
+      <table class="table table-sm table-bordered table-striped mb-0">
+        <tbody>
+          {% for row in table.rows %}
+            <tr>{% for cell in row %}<td>{{ cell }}</td>{% endfor %}</tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endfor %}
+{% endblock %}

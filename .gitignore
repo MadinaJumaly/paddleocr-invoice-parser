@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Virtual environments (never commit these)
+venv/
+.venv/
+env/
+
+# Django local data
+db.sqlite3
+db.sqlite3-journal
+media/
+staticfiles/
+.env
+
+# Model weights / vendored libraries
+*.whl
+PaddleOCR/
+inference/
+output/
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/

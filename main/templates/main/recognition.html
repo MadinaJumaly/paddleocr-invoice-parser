@@ -1,0 +1,46 @@
+{% extends "main/base.html" %}
+{% block title %}Распознавание{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Распознавание</h2>
+
+<div class="row g-4">
+  <div class="col-lg-7">
+    <div class="card shadow-sm">
+      <div class="card-header bg-white fw-semibold"><i class="bx bx-upload"></i> Загрузить документ</div>
+      <div class="card-body">
+        <form method="post" enctype="multipart/form-data" id="upload-form">
+          {% csrf_token %}
+          {% include "main/partials/form_fields.html" %}
+          <button type="submit" class="btn btn-primary" id="upload-btn">
+            <span class="spinner-border spinner-border-sm d-none" role="status"></span>
+            <span class="btn-label">Распознать</span>
+          </button>
+          <div class="form-text mt-2">
+            Распознавание идёт на сервере и занимает несколько секунд на страницу (первый запуск дольше — загружаются модели).
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-5">
+    <div class="card shadow-sm">
+      <div class="card-header bg-white fw-semibold d-flex justify-content-between">
+        <span><i class="bx bx-history"></i> Последние</span>
+        <a href="{% url 'history' %}" class="small">Вся история →</a>
+      </div>
+      <ul class="list-group list-group-flush">
+        {% for item in recent %}
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <a href="{% url 'recognition_detail' item.pk %}" class="text-truncate me-2">{{ item.original_name }}</a>
+            {% include "main/partials/status_badge.html" %}
+          </li>
+        {% empty %}
+          <li class="list-group-item text-muted">Пока нет загруженных документов.</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}

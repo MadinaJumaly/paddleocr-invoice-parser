@@ -1,0 +1,30 @@
+{% with name=request.resolver_match.url_name %}
+<nav class="nav">
+  <div>
+    <a href="{% url 'home' %}" class="nav_logo">
+      <i class="bx bx-table nav_logo-icon"></i>
+      <span class="nav_logo-name">PDF → Excel</span>
+    </a>
+    <div class="nav_list">
+      <a href="{% url 'home' %}" class="nav_link {% if name == 'home' %}active{% endif %}">
+        <i class="bx bx-grid-alt nav_icon"></i><span class="nav_name">Главная</span>
+      </a>
+      <a href="{% url 'recognition' %}" class="nav_link {% if name == 'recognition' or name == 'recognition_detail' %}active{% endif %}">
+        <i class="bx bx-file nav_icon"></i><span class="nav_name">Распознавание</span>
+      </a>
+      <a href="{% url 'history' %}" class="nav_link {% if name == 'history' %}active{% endif %}">
+        <i class="bx bx-history nav_icon"></i><span class="nav_name">История</span>
+      </a>
+      <a href="{% url 'profile' %}" class="nav_link {% if name == 'profile' %}active{% endif %}">
+        <i class="bx bx-user nav_icon"></i><span class="nav_name">Профиль</span>
+      </a>
+    </div>
+  </div>
+  <form method="post" action="{% url 'logout' %}">
+    {% csrf_token %}
+    <button type="submit" class="nav_link btn btn-link w-100 text-start border-0">
+      <i class="bx bx-log-out nav_icon"></i><span class="nav_name">Выйти</span>
+    </button>
+  </form>
+</nav>
+{% endwith %}

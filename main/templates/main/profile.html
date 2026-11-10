@@ -1,0 +1,35 @@
+{% extends "main/base.html" %}
+{% block title %}Профиль{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Профиль</h2>
+
+<div class="row g-4">
+  <div class="col-lg-4">
+    <div class="card shadow-sm text-center"><div class="card-body">
+      <i class="bx bx-user-circle profile-icon text-primary-brand"></i>
+      <h4 class="mt-2 mb-0">{{ user.get_full_name|default:user.username }}</h4>
+      <div class="text-muted">@{{ user.username }}</div>
+      <div class="text-muted small">с {{ user.date_joined|date:"d.m.Y" }}</div>
+      <hr>
+      <div class="row">
+        <div class="col"><div class="fs-4 fw-bold">{{ stats.total }}</div><div class="small text-muted">документов</div></div>
+        <div class="col"><div class="fs-4 fw-bold text-success">{{ stats.done }}</div><div class="small text-muted">готово</div></div>
+        <div class="col"><div class="fs-4 fw-bold text-danger">{{ stats.failed }}</div><div class="small text-muted">ошибок</div></div>
+      </div>
+    </div></div>
+  </div>
+
+  <div class="col-lg-8">
+    <div class="card shadow-sm"><div class="card-body">
+      <h5 class="mb-3">Настройки аккаунта</h5>
+      <form method="post">
+        {% csrf_token %}
+        {% with form=user_form %}{% include "main/partials/form_fields.html" %}{% endwith %}
+        {% with form=profile_form %}{% include "main/partials/form_fields.html" %}{% endwith %}
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+      </form>
+    </div></div>
+  </div>
+</div>
+{% endblock %}
